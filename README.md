@@ -1,1 +1,1 @@
-# Chatty App
+# Chatty App Backend
