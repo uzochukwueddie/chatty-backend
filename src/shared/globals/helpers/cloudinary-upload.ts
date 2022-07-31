@@ -15,7 +15,7 @@ export function uploads(
         invalidate
       },
       (error: UploadApiErrorResponse | undefined, result: UploadApiResponse | undefined) => {
-        if(error) resolve(error);
+        if (error) resolve(error);
         resolve(result);
       }
     );
