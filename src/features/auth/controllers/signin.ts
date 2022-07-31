@@ -4,9 +4,9 @@ import JWT from 'jsonwebtoken';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import HTTP_STATUS from 'http-status-codes';
 import { authService } from '@service/db/auth.service';
-import { BadRequestError } from 'src/shared/globals/helpers/error-handler';
 import { loginSchema } from '@auth/schemes/signin';
 import { IAuthDocument } from '@auth/interfaces/auth.interface';
+import { BadRequestError } from '@global/helpers/error-handler';
 
 export class SignIn {
   @joiValidation(loginSchema)
