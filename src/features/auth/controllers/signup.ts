@@ -4,7 +4,6 @@ import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { signupSchema } from '@auth/schemes/signup';
 import { IAuthDocument, ISignUpData } from '@auth/interfaces/auth.interface';
 import { authService } from '@service/db/auth.service';
-import { BadRequestError } from 'src/shared/globals/helpers/error-handler';
 import { Helpers } from '@global/helpers/helpers';
 import { UploadApiResponse } from 'cloudinary';
 import { uploads } from '@global/helpers/cloudinary-upload';
@@ -16,6 +15,7 @@ import JWT from 'jsonwebtoken';
 import { authQueue } from '@service/queues/auth.queue';
 import { userQueue } from '@service/queues/user.queue';
 import { config } from '@root/config';
+import { BadRequestError } from '@global/helpers/error-handler';
 
 const userCache: UserCache = new UserCache();
 
