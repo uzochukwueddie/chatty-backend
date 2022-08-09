@@ -8,10 +8,10 @@ Accept: application/json
 withCredentials: true
 
 {
-  "username": "danny",
+  "username": "steve",
   "password": "qwerty",
-  "email": "danny@test.com",
-  "avatarColor": "green",
+  "email": "steve@test.com",
+  "avatarColor": "blue",
   "avatarImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAAMyAQMAAABtkHM/AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAAFiS0dEAf8CLd4AAABrSURBVBgZ7cGBAAAAAMOg+1NP4AjVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjgBSwwABwrL8wAAAAABJRU5ErkJggg=="
 }
 
