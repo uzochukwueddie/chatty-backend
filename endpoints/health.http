@@ -1,0 +1,19 @@
+@baseUrl = http://localhost:5000
+
+###
+GET {{baseUrl}}/health
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/env
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/fibo/5
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
