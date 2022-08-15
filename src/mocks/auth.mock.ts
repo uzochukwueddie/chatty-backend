@@ -30,7 +30,21 @@ export interface IAuthMock {
   avatarColor?: string;
   avatarImage?: string;
   createdAt?: Date | string;
+  currentPassword?: string;
+  newPassword?: string;
   confirmPassword?: string;
+  quote?: string;
+  work?: string;
+  school?: string;
+  location?: string;
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+  youtube?: string;
+  messages?: boolean,
+  reactions?: boolean,
+  comments?: boolean,
+  follows?: boolean
 }
 
 export const authUserPayload: AuthPayload = {
