@@ -65,7 +65,7 @@ export const postMockData: IPostDocument = {
   reactions: {
     like: 0,
     love: 0,
-    haha: 0,
+    happy: 0,
     wow: 0,
     sad: 0,
     angry: 0
