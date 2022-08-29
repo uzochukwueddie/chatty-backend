@@ -1,0 +1,84 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/chat/message
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "conversationId": "62f7d664126558835a734ebc",
+  "receiverId": "62f29f71da585226216b2724",
+  "receiverUsername": "Steve",
+  "receiverAvatarColor": "red",
+  "receiverProfilePicture": "https://res.cloudinary.com/dyamr9ym3/image/upload/v1660067697/62f29f71da585226216b2724",
+  "body": "Today is an awesome day",
+  "gifUrl": "",
+  "isRead": false,
+  "selectedImage": ""
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/chat/message/add-chat-users
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "userOne": "62f2962c6b761b208a728e91",
+  "userTwo": "62f29f71da585226216b2724"
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/chat/message/remove-chat-users
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "userOne": "62f2962c6b761b208a728e91",
+  "userTwo": "62f29f71da585226216b2724"
+}
+
+###
+GET {{baseUrl}}/{{urlPath}}/chat/message/conversation-list
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/chat/message/user/62f29f71da585226216b2724
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/chat/message/mark-as-deleted/62f7df73cf260a4030a46700/62f2962c6b761b208a728e91/62f29f71da585226216b2724/deleteForEveryone
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+PUT {{baseUrl}}/{{urlPath}}/chat/message/mark-as-read
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "senderId": "62f2962c6b761b208a728e91",
+  "receiverId": "62f29f71da585226216b2724"
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/chat/message/reaction
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "conversationId": "62f7d664126558835a734ebc",
+  "messageId": "62f8bb615bde3fdef34eae82",
+  "reaction": "like",
+  "type": "add"
+}

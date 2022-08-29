@@ -1,0 +1,89 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/all/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile/62f29f71da585226216b2724
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile/posts/danny/62f2962c6b761b208a728e91/643053551256
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile/user/suggestions
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile/search/danny
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/profile/change-password
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "currentPassword": "qwerty",
+  "newPassword": "qwerty1",
+  "confirmPassword": "qwerty1"
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/profile/basic-info
+content-type: application/json
+Accept: 'application/json'
+withCredentials: true
+
+{
+  "quote": "Tomorrow is a mystery. Today is a gift. That's why we call it The Present",
+  "work": "",
+  "school": "Taltech",
+  "location": "Dusseldorf, Germany"
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/profile/social-links
+content-type: application/json
+Accept: 'application/json'
+withCredentials: true
+
+{
+  "instagram": "",
+  "twitter": "",
+  "facebook": "https://www.facebook.com/gitlab",
+  "youtube": "https://www.youtube.com/watch?v=i1o9HMGaWxM"
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/profile/settings
+content-type: application/json
+Accept: 'application/json'
+withCredentials: true
+
+{
+  "messages": false,
+  "reactions": true,
+  "comments": false,
+  "follows": true
+}

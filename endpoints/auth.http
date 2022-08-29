@@ -1,0 +1,60 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/signup
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "username": "steve",
+  "password": "qwerty",
+  "email": "steve@test.com",
+  "avatarColor": "blue",
+  "avatarImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAAMyAQMAAABtkHM/AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAAFiS0dEAf8CLd4AAABrSURBVBgZ7cGBAAAAAMOg+1NP4AjVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjgBSwwABwrL8wAAAAABJRU5ErkJggg=="
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/signin
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "username": "danny",
+  "password": "qwerty1"
+}
+
+###
+GET {{baseUrl}}/{{urlPath}}/signout
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/currentuser
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+POST {{baseUrl}}/{{urlPath}}/forgot-password
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "email": "manny@test.com"
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/reset-password/d6b4bdcaca3f93fb5a322ccba5cd3768f76ca5ea
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "password": "qwerty1",
+  "confirmPassword": "qwerty1"
+}
