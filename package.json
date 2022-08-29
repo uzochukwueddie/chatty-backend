@@ -4,13 +4,18 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "NODE_ENV=production pm2 start ./build/src/app.js -i 5 --attach --watch | ./node_modules/.bin/bunyan",
+    "stop": "pm2 stop all",
+    "delete": "pm2 delete all",
     "dev": "nodemon -r tsconfig-paths/register src/app.ts | ./node_modules/.bin/bunyan",
     "lint:check": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
     "prettier:check": "prettier --check 'src/**/*.{ts,json}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
     "test": "jest --coverage=true -w=1 --forceExit --detectOpenHandles --watchAll=true",
-    "build": "ttsc -p ."
+    "build": "ttsc -p .",
+    "seeds:dev": "npx ts-node src/seeds.ts",
+    "seeds:prod": "npx ts-node ./build/src/seeds.js"
   },
   "keywords": [],
   "author": "",
@@ -48,6 +53,7 @@
     "nodemailer": "^6.7.7",
     "redis": "^4.2.0",
     "socket.io": "^4.5.1",
+    "swagger-stats": "^0.99.2",
     "ttypescript": "^1.5.13",
     "typescript": "^4.7.4",
     "typescript-transform-paths": "^3.3.1"
@@ -66,6 +72,7 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/lodash": "^4.14.182",
     "@types/nodemailer": "^6.4.4",
+    "@types/swagger-stats": "^0.95.5",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "eslint": "^8.20.0",
