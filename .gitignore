@@ -81,6 +81,7 @@ web_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
 .env.local
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -94,6 +95,8 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+
+build
 
 # Gatsby files
 .cache/
