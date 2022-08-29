@@ -10,9 +10,7 @@
     "prettier:check": "prettier --check 'src/**/*.{ts,json}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
     "test": "jest --coverage=true -w=1 --forceExit --detectOpenHandles --watchAll=true",
-    "build": "ttsc -p .",
-    "seeds:dev": "npx ts-node src/seeds.ts",
-    "seeds:prod": "node ./build/seeds.js"
+    "build": "ttsc -p ."
   },
   "keywords": [],
   "author": "",
