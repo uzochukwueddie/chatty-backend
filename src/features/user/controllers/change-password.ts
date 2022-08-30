@@ -21,7 +21,7 @@ export class Update {
     }
     const existingUser: IAuthDocument = await authService.getAuthUserByUsername(req.currentUser!.username);
     const passwordsMatch: boolean = await existingUser.comparePassword(currentPassword);
-    if(!passwordsMatch) {
+    if (!passwordsMatch) {
       throw new BadRequestError('Invalid credentials');
     }
     const hashedPassword: string = await existingUser.hashPassword(newPassword);

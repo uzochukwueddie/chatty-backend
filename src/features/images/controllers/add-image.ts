@@ -22,11 +22,11 @@ export class Add {
       throw new BadRequestError('File upload: Error occurred. Try again.');
     }
     const url = `https://res.cloudinary.com/dyamr9ym3/image/upload/v${result.version}/${result.public_id}`;
-    const cachedUser: IUserDocument = await userCache.updateSingleUserItemInCache(
+    const cachedUser: IUserDocument = (await userCache.updateSingleUserItemInCache(
       `${req.currentUser!.userId}`,
       'profilePicture',
       url
-    ) as IUserDocument;
+    )) as IUserDocument;
     socketIOImageObject.emit('update user', cachedUser);
     imageQueue.addImageJob('addUserProfileImageToDB', {
       key: `${req.currentUser!.userId}`,
@@ -50,7 +50,7 @@ export class Add {
       'bgImageVersion',
       version
     ) as Promise<IUserDocument>;
-    const response: [IUserDocument, IUserDocument] = await Promise.all([bgImageId, bgImageVersion]) as [IUserDocument, IUserDocument];
+    const response: [IUserDocument, IUserDocument] = (await Promise.all([bgImageId, bgImageVersion])) as [IUserDocument, IUserDocument];
     socketIOImageObject.emit('update user', {
       bgImageId: publicId,
       bgImageVersion: version,
@@ -70,7 +70,7 @@ export class Add {
     let publicId = '';
     if (isDataURL) {
       const result: UploadApiResponse = (await uploads(image)) as UploadApiResponse;
-      if(!result.public_id) {
+      if (!result.public_id) {
         throw new BadRequestError(result.message);
       } else {
         version = result.version.toString();

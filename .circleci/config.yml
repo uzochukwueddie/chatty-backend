@@ -22,7 +22,7 @@ aliases:
   - &show-current-branch-name
     run:
       name: Show current branch
-      command: echo ${CURRENT_BRANCH}
+      command: echo ${CIRCLE_BRANCH}
   - &restore-cache
     restore_cache:
       keys:
@@ -114,7 +114,6 @@ jobs:
       - *restore-cache
       - *install-dependencies
       - *save-cache
-      - *notify-on-fail
 
   linting:
     executor: app-executor

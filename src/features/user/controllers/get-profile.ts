@@ -71,7 +71,7 @@ export class Get {
   public async randomUserSuggestions(req: Request, res: Response): Promise<void> {
     let randomUsers: IUserDocument[] = [];
     const cachedUsers: IUserDocument[] = await userCache.getRandomUsersFromCache(`${req.currentUser!.userId}`, req.currentUser!.username);
-    if(cachedUsers.length) {
+    if (cachedUsers.length) {
       randomUsers = [...cachedUsers];
     } else {
       const users: IUserDocument[] = await userService.getRandomUsers(req.currentUser!.userId);

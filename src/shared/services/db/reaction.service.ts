@@ -22,7 +22,7 @@ class ReactionService {
     if (previousReaction) {
       updatedReactionObject = omit(reactionObject, ['_id']);
     }
-    const updatedReaction: [IUserDocument, IReactionDocument, IPostDocument] = await Promise.all([
+    const updatedReaction: [IUserDocument, IReactionDocument, IPostDocument] = (await Promise.all([
       userCache.getUserFromCache(`${userTo}`),
       ReactionModel.replaceOne({ postId, type: previousReaction, username }, updatedReactionObject, { upsert: true }),
       PostModel.findOneAndUpdate(
@@ -35,7 +35,7 @@ class ReactionService {
         },
         { new: true }
       )
-    ]) as [IUserDocument, IReactionDocument, IPostDocument];
+    ])) as [IUserDocument, IReactionDocument, IPostDocument];
 
     if (updatedReaction[0].notifications.reactions && userTo !== userFrom) {
       const notificationModel: INotificationDocument = new NotificationModel();
@@ -61,7 +61,11 @@ class ReactionService {
         header: 'Post Reaction Notification'
       };
       const template: string = notificationTemplate.notificationMessageTemplate(templateParams);
-      emailQueue.addEmailJob('reactionsEmail', { receiverEmail: updatedReaction[0].email!, template, subject: 'Post reaction notification' });
+      emailQueue.addEmailJob('reactionsEmail', {
+        receiverEmail: updatedReaction[0].email!,
+        template,
+        subject: 'Post reaction notification'
+      });
     }
   }
 
@@ -74,7 +78,7 @@ class ReactionService {
         {
           $inc: {
             [`reactions.${previousReaction}`]: -1
-          },
+          }
         },
         { new: true }
       )
@@ -82,23 +86,20 @@ class ReactionService {
   }
 
   public async getPostReactions(query: IQueryReaction, sort: Record<string, 1 | -1>): Promise<[IReactionDocument[], number]> {
-    const reactions: IReactionDocument[] = await ReactionModel.aggregate([
-      { $match: query },
-      { $sort: sort }
-    ]);
+    const reactions: IReactionDocument[] = await ReactionModel.aggregate([{ $match: query }, { $sort: sort }]);
     return [reactions, reactions.length];
   }
 
   public async getSinglePostReactionByUsername(postId: string, username: string): Promise<[IReactionDocument, number] | []> {
     const reactions: IReactionDocument[] = await ReactionModel.aggregate([
-      { $match: { postId: new mongoose.Types.ObjectId(postId), username: Helpers.firstLetterUppercase(username) } },
+      { $match: { postId: new mongoose.Types.ObjectId(postId), username: Helpers.firstLetterUppercase(username) } }
     ]);
     return reactions.length ? [reactions[0], 1] : [];
   }
 
   public async getReactionsByUsername(username: string): Promise<IReactionDocument[]> {
     const reactions: IReactionDocument[] = await ReactionModel.aggregate([
-      { $match: { username: Helpers.firstLetterUppercase(username) } },
+      { $match: { username: Helpers.firstLetterUppercase(username) } }
     ]);
     return reactions;
   }

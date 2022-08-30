@@ -10,7 +10,7 @@ const userCache: UserCache = new UserCache();
 export class Edit {
   @joiValidation(basicInfoSchema)
   public async info(req: Request, res: Response): Promise<void> {
-    for(const [key, value] of Object.entries(req.body)) {
+    for (const [key, value] of Object.entries(req.body)) {
       await userCache.updateSingleUserItemInCache(`${req.currentUser!.userId}`, key, `${value}`);
     }
     userQueue.addUserJob('updateBasicInfoInDB', {

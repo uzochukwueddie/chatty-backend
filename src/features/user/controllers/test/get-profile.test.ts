@@ -191,7 +191,10 @@ describe('Get', () => {
       jest.spyOn(UserCache.prototype, 'getRandomUsersFromCache').mockResolvedValue([existingUser]);
 
       await Get.prototype.randomUserSuggestions(req, res);
-      expect(UserCache.prototype.getRandomUsersFromCache).toHaveBeenCalledWith(`${req.currentUser?.userId}`, `${req.currentUser?.username}`);
+      expect(UserCache.prototype.getRandomUsersFromCache).toHaveBeenCalledWith(
+        `${req.currentUser?.userId}`,
+        `${req.currentUser?.username}`
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         message: 'User suggestions',

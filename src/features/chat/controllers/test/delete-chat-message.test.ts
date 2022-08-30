@@ -33,17 +33,12 @@ describe('Delete', () => {
 
   describe('markMessageAsDeleted', () => {
     it('should send correct json response (deleteForMe)', async () => {
-      const req: Request = chatMockRequest(
-        {},
-        {},
-        authUserPayload,
-        {
-          senderId: `${existingUser._id}`,
-          receiverId: '60263f14648fed5246e322d8',
-          messageId: `${mockMessageId}`,
-          type: 'deleteForMe'
-        }
-      ) as Request;
+      const req: Request = chatMockRequest({}, {}, authUserPayload, {
+        senderId: `${existingUser._id}`,
+        receiverId: '60263f14648fed5246e322d8',
+        messageId: `${mockMessageId}`,
+        type: 'deleteForMe'
+      }) as Request;
       const res: Response = chatMockResponse();
       jest.spyOn(MessageCache.prototype, 'markMessageAsDeleted').mockResolvedValue(messageDataMock);
       jest.spyOn(chatServer.socketIOChatObject, 'emit');
@@ -64,17 +59,12 @@ describe('Delete', () => {
     });
 
     it('should send correct json response (deleteForEveryone)', async () => {
-      const req: Request = chatMockRequest(
-        {},
-        {},
-        authUserPayload,
-        {
-          senderId: `${existingUser._id}`,
-          receiverId: '60263f14648fed5246e322d8',
-          messageId: `${mockMessageId}`,
-          type: 'deleteForEveryone'
-        }
-      ) as Request;
+      const req: Request = chatMockRequest({}, {}, authUserPayload, {
+        senderId: `${existingUser._id}`,
+        receiverId: '60263f14648fed5246e322d8',
+        messageId: `${mockMessageId}`,
+        type: 'deleteForEveryone'
+      }) as Request;
       const res: Response = chatMockResponse();
       jest.spyOn(MessageCache.prototype, 'markMessageAsDeleted').mockResolvedValue(messageDataMock);
       jest.spyOn(chatServer.socketIOChatObject, 'emit');

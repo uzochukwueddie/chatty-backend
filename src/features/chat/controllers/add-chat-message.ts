@@ -38,7 +38,7 @@ export class Add {
     const messageObjectId: ObjectId = new ObjectId();
     const conversationObjectId: ObjectId = !conversationId ? new ObjectId() : new mongoose.Types.ObjectId(conversationId);
 
-    const sender: IUserDocument = await userCache.getUserFromCache(`${req.currentUser!.userId}`) as IUserDocument;
+    const sender: IUserDocument = (await userCache.getUserFromCache(`${req.currentUser!.userId}`)) as IUserDocument;
 
     if (selectedImage.length) {
       const result: UploadApiResponse = (await uploads(req.body.image, req.currentUser!.userId, true, true)) as UploadApiResponse;
@@ -91,13 +91,13 @@ export class Add {
   public async addChatUsers(req: Request, res: Response): Promise<void> {
     const chatUsers = await messageCache.addChatUsersToCache(req.body);
     socketIOChatObject.emit('add chat users', chatUsers);
-    res.status(HTTP_STATUS.OK).json({ message: 'Users added'});
+    res.status(HTTP_STATUS.OK).json({ message: 'Users added' });
   }
 
   public async removeChatUsers(req: Request, res: Response): Promise<void> {
     const chatUsers = await messageCache.removeChatUsersFromCache(req.body);
     socketIOChatObject.emit('add chat users', chatUsers);
-    res.status(HTTP_STATUS.OK).json({ message: 'Users removed'});
+    res.status(HTTP_STATUS.OK).json({ message: 'Users removed' });
   }
 
   private emitSocketIOEvent(data: IMessageData): void {
@@ -106,15 +106,19 @@ export class Add {
   }
 
   private async messageNotification({ currentUser, message, receiverName, receiverId }: IMessageNotification): Promise<void> {
-    const cachedUser: IUserDocument = await userCache.getUserFromCache(`${receiverId}`) as IUserDocument;
-    if(cachedUser.notifications.messages) {
+    const cachedUser: IUserDocument = (await userCache.getUserFromCache(`${receiverId}`)) as IUserDocument;
+    if (cachedUser.notifications.messages) {
       const templateParams: INotificationTemplate = {
         username: receiverName,
         message,
         header: `Message notification from ${currentUser.username}`
       };
       const template: string = notificationTemplate.notificationMessageTemplate(templateParams);
-      emailQueue.addEmailJob('directMessageEmail', { receiverEmail: cachedUser.email!, template, subject: `You've received messages from ${currentUser.username}` });
+      emailQueue.addEmailJob('directMessageEmail', {
+        receiverEmail: cachedUser.email!,
+        template,
+        subject: `You've received messages from ${currentUser.username}`
+      });
     }
   }
 }

@@ -19,7 +19,7 @@ const notificationSchema: Schema = new Schema({
   createdAt: { type: Date, default: Date.now() }
 });
 
-notificationSchema.methods.insertNotification = async function(body: INotification) {
+notificationSchema.methods.insertNotification = async function (body: INotification) {
   const {
     userTo,
     userFrom,

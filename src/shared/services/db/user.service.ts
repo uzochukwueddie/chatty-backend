@@ -11,7 +11,7 @@ class UserService {
   }
 
   public async updatePassword(username: string, hashedPassword: string): Promise<void> {
-    await AuthModel.updateOne({ username }, { $set: { password: hashedPassword }}).exec();
+    await AuthModel.updateOne({ username }, { $set: { password: hashedPassword } }).exec();
   }
 
   public async updateUserInfo(userId: string, info: IBasicInfo): Promise<void> {
@@ -38,7 +38,7 @@ class UserService {
   }
 
   public async updateNotificationSettings(userId: string, settings: INotificationSettings): Promise<void> {
-    await UserModel.updateOne({ _id: userId }, { $set: { notifications: settings }}).exec();
+    await UserModel.updateOne({ _id: userId }, { $set: { notifications: settings } }).exec();
   }
 
   public async getUserById(userId: string): Promise<IUserDocument> {
@@ -80,7 +80,7 @@ class UserService {
       { $match: { _id: { $ne: new mongoose.Types.ObjectId(userId) } } },
       { $lookup: { from: 'Auth', localField: 'authId', foreignField: '_id', as: 'authId' } },
       { $unwind: '$authId' },
-      { $sample: { size: 10 }},
+      { $sample: { size: 10 } },
       {
         $addFields: {
           username: '$authId.username',
@@ -98,7 +98,7 @@ class UserService {
       }
     ]);
     const followers: string[] = await followerService.getFolloweesIds(`${userId}`);
-    for(const user of users) {
+    for (const user of users) {
       const followerIndex = indexOf(followers, user._id.toString());
       if (followerIndex < 0) {
         randomUsers.push(user);

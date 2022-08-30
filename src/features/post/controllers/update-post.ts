@@ -38,11 +38,11 @@ export class Update {
   @joiValidation(postWithImageSchema)
   public async postWithImage(req: Request, res: Response): Promise<void> {
     const { imgId, imgVersion } = req.body;
-    if(imgId && imgVersion) {
+    if (imgId && imgVersion) {
       Update.prototype.updatePostWithImage(req);
     } else {
       const result: UploadApiResponse = await Update.prototype.addImageToExistingPost(req);
-      if(!result.public_id) {
+      if (!result.public_id) {
         throw new BadRequestError(result.message);
       }
     }

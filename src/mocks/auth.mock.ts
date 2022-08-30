@@ -41,10 +41,10 @@ export interface IAuthMock {
   instagram?: string;
   twitter?: string;
   youtube?: string;
-  messages?: boolean,
-  reactions?: boolean,
-  comments?: boolean,
-  follows?: boolean
+  messages?: boolean;
+  reactions?: boolean;
+  comments?: boolean;
+  follows?: boolean;
 }
 
 export const authUserPayload: AuthPayload = {

@@ -32,7 +32,7 @@ export class Delete {
       'bgImageVersion',
       ''
     ) as Promise<IUserDocument>;
-    await Promise.all([bgImageId, bgImageVersion]) as [IUserDocument, IUserDocument];
+    (await Promise.all([bgImageId, bgImageVersion])) as [IUserDocument, IUserDocument];
     imageQueue.addImageJob('removeImageFromDB', {
       imageId: image?._id
     });

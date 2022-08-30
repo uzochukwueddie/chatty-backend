@@ -21,7 +21,11 @@ class ChatRoutes {
     this.router.post('/chat/message/remove-chat-users', authMiddleware.checkAuthentication, Add.prototype.removeChatUsers);
     this.router.put('/chat/message/mark-as-read', authMiddleware.checkAuthentication, Update.prototype.message);
     this.router.put('/chat/message/reaction', authMiddleware.checkAuthentication, Message.prototype.reaction);
-    this.router.delete('/chat/message/mark-as-deleted/:messageId/:senderId/:receiverId/:type', authMiddleware.checkAuthentication, Delete.prototype.markMessageAsDeleted);
+    this.router.delete(
+      '/chat/message/mark-as-deleted/:messageId/:senderId/:receiverId/:type',
+      authMiddleware.checkAuthentication,
+      Delete.prototype.markMessageAsDeleted
+    );
 
     return this.router;
   }

@@ -24,7 +24,7 @@ class BlockUserService {
             } as PushOperator<Document>
           }
         }
-      },
+      }
     ]);
   }
 
@@ -49,7 +49,7 @@ class BlockUserService {
             } as PushOperator<Document>
           }
         }
-      },
+      }
     ]);
   }
 }

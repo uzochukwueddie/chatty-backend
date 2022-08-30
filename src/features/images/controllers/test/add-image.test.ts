@@ -139,11 +139,7 @@ describe('Add', () => {
 
       await Add.prototype.backgroundImage(req, res);
       expect(UserCache.prototype.updateSingleUserItemInCache).toHaveBeenCalledWith(`${req.currentUser!.userId}`, 'bgImageId', '123456');
-      expect(UserCache.prototype.updateSingleUserItemInCache).toHaveBeenCalledWith(
-        `${req.currentUser!.userId}`,
-        'bgImageVersion',
-        '1234'
-      );
+      expect(UserCache.prototype.updateSingleUserItemInCache).toHaveBeenCalledWith(`${req.currentUser!.userId}`, 'bgImageVersion', '1234');
       expect(imageServer.socketIOImageObject.emit).toHaveBeenCalledWith('update user', {
         bgImageId: '123456',
         bgImageVersion: '1234',
