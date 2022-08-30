@@ -81,6 +81,7 @@ web_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.develop
 .env.production
 .env.local
 
