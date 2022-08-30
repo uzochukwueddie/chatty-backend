@@ -12,7 +12,7 @@
     "lint:fix": "eslint 'src/**/*.ts' --fix",
     "prettier:check": "prettier --check 'src/**/*.{ts,json}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
-    "test": "jest --coverage=true -w=1 --forceExit --detectOpenHandles --watchAll=true",
+    "test": "jest --coverage=true -w=1 --forceExit --detectOpenHandles --watchAll=false",
     "build": "ttsc -p .",
     "seeds:dev": "npx ts-node src/seeds.ts",
     "seeds:prod": "npx ts-node ./build/src/seeds.js"
