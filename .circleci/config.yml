@@ -8,14 +8,14 @@ executors:
     docker:
       - image: cimg/node:16.17.0
       - image: cimg/redis:7.0.2
-      - image: 'cibuilds/base:lastest'
+      - image: 'cibuilds/base:latest'
     working_directory: ~/repo
   terraform-executor:
     docker:
-      - image: hashicorp/terraform:lastest
+      - image: hashicorp/terraform:latest
   slack-executor:
     docker:
-      - image: 'cibuilds/base:lastest'
+      - image: 'cibuilds/base:latest'
     resource_class: small
 
 aliases:
