@@ -55,7 +55,7 @@ variable "main_api_server_domain" {
 variable "dev_api_server_domain" {
   description = "Dev API Server Domain"
   type        = string
-  default     = "api.dev.chatappserver.xyz"
+  default     = "api.stg.chatappserver.xyz"
 }
 
 variable "ec2_iam_role_name" {
