@@ -45,14 +45,6 @@ aliases:
           rm -rf node_modules
           zip chatapp.zip -r .
           echo "Zip successful"
-  - &install-aws-cli
-    run:
-      name: Installing AWS CLI
-      working_directory: /
-      command: |
-        sudo apt-get -y -qq update
-        sudo apt-get install -y awscli
-        sudo apt-get install -y python-pip python-dev build-essential
   - &notify-on-fail
     slack/notify:
       event: fail
@@ -314,7 +306,9 @@ jobs:
     executor: terraform-executor
     steps:
       - checkout
-      - *install-aws-cli
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
       - run: aws --version
       - run: aws configure list
       - run:
