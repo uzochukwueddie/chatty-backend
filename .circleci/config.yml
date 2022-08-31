@@ -303,7 +303,7 @@ jobs:
             terraform destroy -auto-approve
 
   chatapp-testing-app:
-    executor: terraform-executor
+    executor: app-executor
     steps:
       - checkout
       - *zip-project
@@ -312,7 +312,7 @@ jobs:
       - run:
           name: Upload to s3
           command: |
-            aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-testing-app/develop
+            aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-testing-app/develop/
 
 workflows:
   build_and_deploy:
