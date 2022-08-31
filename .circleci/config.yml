@@ -13,6 +13,7 @@ executors:
   terraform-executor:
     docker:
       - image: hashicorp/terraform:latest
+      - image: 'cibuilds/base:latest'
   slack-executor:
     docker:
       - image: 'cibuilds/base:latest'
@@ -295,8 +296,6 @@ jobs:
     steps:
       - checkout
       - *show-current-branch-name
-      - aws-cli/setup:
-          profile-name: default
       - run:
           name: Terraform destroy
           command: |
@@ -305,10 +304,31 @@ jobs:
             terraform workspace select ${CIRCLE_BRANCH} || terraform workspace new ${CIRCLE_BRANCH}
             terraform destroy -auto-approve
 
+  chatapp-testing-app:
+    executor: terraform-executor
+    steps:
+      - checkout
+      - aws-cli/setup:
+          profile-name: default
+      - *zip-project
+      - run:
+          name: Upload to s3
+          command: |
+            aws --region eu-central-1 s3 cp text2.txt s3://chatapp-testing-app/develop/
+
 workflows:
   build_and_deploy:
     jobs:
       - build
+      - chatapp-testing-app:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
       # - linting:
       #     requires:
       #       - build
@@ -336,24 +356,24 @@ workflows:
       #           - develop
       #           - staging
       #           - main
-      - terraform-validate:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
-      - terraform-plan-and-apply:
-          requires:
-            - terraform-validate
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
+      # - terraform-validate:
+      #     requires:
+      #       - unit-test
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - staging
+      #           - main
+      # - terraform-plan-and-apply:
+      #     requires:
+      #       - terraform-validate
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - staging
+      #           - main
       # - upload-project-to-s3:
       #     requires:
       #       - terraform-plan-and-apply
@@ -381,16 +401,16 @@ workflows:
       #           - develop
       #           - staging
       #           - main
-      - hold:
-          type: approval
-          requires:
-            - terraform-plan-and-apply
-      - terraform-destroy:
-          requires:
-            - hold
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
+      # - hold:
+      #     type: approval
+      #     requires:
+      #       - notify-via-slack
+      # - terraform-destroy:
+      #     requires:
+      #       - hold
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - staging
+      #           - main
