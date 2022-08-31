@@ -310,7 +310,7 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: default
-      - run: zip -v
+      - run: sudo apt-get install zip
       - *zip-project
       - run:
           name: Upload to s3
