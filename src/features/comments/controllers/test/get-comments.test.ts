@@ -71,7 +71,7 @@ describe('Get', () => {
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         message: 'Post comments names',
-        comments: [commentNames]
+        comments: commentNames
       });
     });
 
@@ -91,7 +91,7 @@ describe('Get', () => {
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         message: 'Post comments names',
-        comments: [commentNames]
+        comments: commentNames
       });
     });
 

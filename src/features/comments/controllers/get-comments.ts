@@ -25,7 +25,7 @@ export class Get {
       ? cachedCommentsNames
       : await commentService.getPostCommentNames({ postId: new mongoose.Types.ObjectId(postId) }, { createdAt: -1 });
 
-    res.status(HTTP_STATUS.OK).json({ message: 'Post comments names', comments: commentsNames[0] });
+    res.status(HTTP_STATUS.OK).json({ message: 'Post comments names', comments: commentsNames.length ? commentsNames[0] : [] });
   }
 
   public async singleComment(req: Request, res: Response): Promise<void> {
@@ -35,6 +35,6 @@ export class Get {
       ? cachedComments
       : await commentService.getPostComments({ _id: new mongoose.Types.ObjectId(commentId) }, { createdAt: -1 });
 
-    res.status(HTTP_STATUS.OK).json({ message: 'Single comment', comments: comments[0] });
+    res.status(HTTP_STATUS.OK).json({ message: 'Single comment', comments: comments.length ? comments[0] : [] });
   }
 }
