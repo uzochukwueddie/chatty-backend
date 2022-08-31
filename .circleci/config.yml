@@ -13,7 +13,7 @@ executors:
   terraform-executor:
     docker:
       - image: hashicorp/terraform:latest
-      - image: 'cibuilds/base:latest'
+      - image: cimg/base:2022.08
   slack-executor:
     docker:
       - image: 'cibuilds/base:latest'
@@ -310,11 +310,12 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: default
+      - run: zip -v
       - *zip-project
       - run:
           name: Upload to s3
           command: |
-            aws --region eu-central-1 s3 cp text2.txt s3://chatapp-testing-app/develop/
+            aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-testing-app/develop/
 
 workflows:
   build_and_deploy:
