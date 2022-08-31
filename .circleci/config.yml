@@ -13,7 +13,7 @@ executors:
   terraform-executor:
     docker:
       - image: hashicorp/terraform:latest
-      - image: 'cibuilds/base:latest'
+      - image: cimg/aws:2022.06
   slack-executor:
     docker:
       - image: 'cibuilds/base:latest'
@@ -303,7 +303,7 @@ jobs:
             terraform destroy -auto-approve
 
   chatapp-testing-app:
-    executor: aws-cli/terraform-executor
+    executor: terraform-executor
     steps:
       - checkout
       - aws-cli/setup:
