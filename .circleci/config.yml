@@ -305,36 +305,36 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-      - linting:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
-      - code-formatter-check:
-          requires:
-            - linting
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
-      - unit-test:
-          requires:
-            - code-formatter-check
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
+      # - linting:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - staging
+      #           - main
+      # - code-formatter-check:
+      #     requires:
+      #       - linting
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - staging
+      #           - main
+      # - unit-test:
+      #     requires:
+      #       - code-formatter-check
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - staging
+      #           - main
       - terraform-validate:
           requires:
-            - unit-test
+            - build
           filters:
             branches:
               only:
@@ -350,27 +350,27 @@ workflows:
                 - develop
                 - staging
                 - main
-      - upload-project-to-s3:
-          requires:
-            - terraform-plan-and-apply
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
-      - push-to-aws-code-deploy:
-          requires:
-            - upload-project-to-s3
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
+      # - upload-project-to-s3:
+      #     requires:
+      #       - terraform-plan-and-apply
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - staging
+      #           - main
+      # - push-to-aws-code-deploy:
+      #     requires:
+      #       - upload-project-to-s3
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - staging
+      #           - main
       - notify-via-slack:
           requires:
-            - push-to-aws-code-deploy
+            - terraform-plan-and-apply
           filters:
             branches:
               only:

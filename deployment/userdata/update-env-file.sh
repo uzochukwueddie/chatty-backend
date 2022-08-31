@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "***********ELASTICACHE_ENDPOINT***********"
+echo $ELASTICACHE_ENDPOINT
+echo "***********ELASTICACHE_ENDPOINT***********"
+
 aws s3 sync s3://chattyapp-env-files/develop .
 unzip env-file.zip
 cp .env.develop .env
