@@ -43,7 +43,7 @@ aliases:
       command: |
           rm -rf node_modules
           zip chatapp.zip -r .
-          ech "Zip successful"
+          echo "Zip successful"
   - &notify-on-fail
     slack/notify:
       event: fail
