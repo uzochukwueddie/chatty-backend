@@ -307,13 +307,13 @@ jobs:
     executor: terraform-executor
     steps:
       - checkout
-      - *zip-project
       - run: aws --version
       - run: aws configure list
       - run:
           name: Upload to s3
           command: |
-            aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-testing-app/develop/
+            echo "This is a test" > text.txt
+            aws --region eu-central-1 s3 cp text.txt s3://chatapp-testing-app/develop/
 
 workflows:
   build_and_deploy:
