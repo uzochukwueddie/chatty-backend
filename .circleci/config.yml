@@ -303,14 +303,11 @@ jobs:
             terraform destroy -auto-approve
 
   chatapp-testing-app:
-    executor: terraform-executor
+    executor: aws-cli/terraform-executor
     steps:
       - checkout
-      - run:
-          name: Install awscli
-          command: sudo pip install awscli
-      - run: aws --version
-      - run: aws configure list
+      - aws-cli/setup:
+          profile-name: default
       - run:
           name: Upload to s3
           command: |
