@@ -13,7 +13,6 @@ executors:
   terraform-executor:
     docker:
       - image: hashicorp/terraform:latest
-      - image: cimg/aws:2022.06
   slack-executor:
     docker:
       - image: 'cibuilds/base:latest'
@@ -311,8 +310,8 @@ jobs:
       - run:
           name: Upload to s3
           command: |
-            echo "This is a test" > text.txt
-            aws --region eu-central-1 s3 cp text.txt s3://chatapp-testing-app/develop/
+            echo "This is a second test" > text2.txt
+            aws --region eu-central-1 s3 cp text2.txt s3://chatapp-testing-app/develop/
 
 workflows:
   build_and_deploy:
