@@ -14,6 +14,7 @@ executors:
     docker:
       - image: hashicorp/terraform:latest
       - image: cimg/aws:2022.06
+      - image: 'cibuilds/base:latest'
   slack-executor:
     docker:
       - image: 'cibuilds/base:latest'
@@ -303,7 +304,7 @@ jobs:
             terraform destroy -auto-approve
 
   chatapp-testing-app:
-    executor: app-executor
+    executor: terraform-executor
     steps:
       - checkout
       - *zip-project
