@@ -156,19 +156,6 @@ jobs:
       - codecov/upload
       - *notify-on-fail
 
-  upload-project-to-s3:
-    executor: aws-cli/default
-    steps:
-      - checkout
-      - aws-cli/setup:
-          profile-name: default
-      - *zip-project
-      - run:
-          name: Upload project to S3
-          command: |
-            aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-server-${CIRCLE_BRANCH}-app
-      - *notify-on-fail
-
   terraform-validate:
     executor: terraform-executor
     steps:
@@ -201,6 +188,19 @@ jobs:
             cd deployment/
             terraform workspace select ${CIRCLE_BRANCH}
             terraform apply -auto-approve
+      - *notify-on-fail
+
+  upload-project-to-s3:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          profile-name: default
+      - *zip-project
+      - run:
+          name: Upload project to S3
+          command: |
+            aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-server-${CIRCLE_BRANCH}-app
       - *notify-on-fail
 
   push-to-aws-code-deploy:
@@ -332,18 +332,9 @@ workflows:
                 - develop
                 - staging
                 - main
-      - upload-project-to-s3:
-          requires:
-            - unit-test
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
       - terraform-validate:
           requires:
-            - upload-project-to-s3
+            - unit-test
           filters:
             branches:
               only:
@@ -359,9 +350,18 @@ workflows:
                 - develop
                 - staging
                 - main
-      - push-to-aws-code-deploy:
+      - upload-project-to-s3:
           requires:
             - terraform-plan-and-apply
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
+      - push-to-aws-code-deploy:
+          requires:
+            - upload-project-to-s3
           filters:
             branches:
               only:
