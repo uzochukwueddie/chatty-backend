@@ -187,6 +187,19 @@ jobs:
             terraform apply -auto-approve
       - *notify-on-fail
 
+  terraform-upload-to-s3-destroy:
+    executor: terraform-executor
+    steps:
+      - checkout
+      - *show-current-branch-name
+      - run:
+          name: Terraform destroy
+          command: |
+            cd infra/
+            terraform init
+            terraform destroy -auto-approve
+      - *notify-on-fail
+
   terraform-plan-and-apply:
     executor: terraform-executor
     steps:
@@ -417,6 +430,19 @@ workflows:
       #           - develop
       #           - staging
       #           - main
+      - hold:
+          type: approval
+          requires:
+            - terraform-upload-to-s3
+      - terraform-upload-to-s3-destroy:
+          requires:
+            - hold
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
       # - hold:
       #     type: approval
       #     requires:
