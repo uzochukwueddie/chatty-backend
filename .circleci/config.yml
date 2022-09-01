@@ -170,36 +170,6 @@ jobs:
             terraform fmt
       - *notify-on-fail
 
-  terraform-upload-to-s3:
-    executor: terraform-executor
-    steps:
-      - checkout
-      - *show-current-branch-name
-      - aws-cli/setup:
-          profile-name: default
-      - run:
-          name: Terraform upload to S3
-          command: |
-            cd infra/
-            terraform init
-            terraform validate
-            terraform fmt
-            terraform apply -auto-approve
-      - *notify-on-fail
-
-  terraform-upload-to-s3-destroy:
-    executor: terraform-executor
-    steps:
-      - checkout
-      - *show-current-branch-name
-      - run:
-          name: Terraform destroy
-          command: |
-            cd infra/
-            terraform init
-            terraform destroy -auto-approve
-      - *notify-on-fail
-
   terraform-plan-and-apply:
     executor: terraform-executor
     steps:
@@ -333,23 +303,11 @@ jobs:
             terraform workspace select ${CIRCLE_BRANCH} || terraform workspace new ${CIRCLE_BRANCH}
             terraform destroy -auto-approve
 
-  # chatapp-testing-app:
-  #   executor: terraform-executor
-  #   steps:
-  #     - checkout
-  #     - aws-cli/setup:
-  #         profile-name: default
-  #     - *zip-project
-  #     - run:
-  #         name: Upload to s3
-  #         command: |
-  #           aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-testing-app/develop/
-
 workflows:
   build_and_deploy:
     jobs:
       - build
-      - terraform-upload-to-s3:
+      - linting:
           requires:
             - build
           filters:
@@ -358,83 +316,74 @@ workflows:
                 - develop
                 - staging
                 - main
-      # - linting:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
-      # - code-formatter-check:
-      #     requires:
-      #       - linting
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
-      # - unit-test:
-      #     requires:
-      #       - code-formatter-check
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
-      # - terraform-validate:
-      #     requires:
-      #       - unit-test
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
-      # - terraform-plan-and-apply:
-      #     requires:
-      #       - terraform-validate
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
-      # - upload-project-to-s3:
-      #     requires:
-      #       - terraform-plan-and-apply
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
-      # - push-to-aws-code-deploy:
-      #     requires:
-      #       - upload-project-to-s3
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
-      # - notify-via-slack:
-      #     requires:
-      #       - push-to-aws-code-deploy
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
+      - code-formatter-check:
+          requires:
+            - linting
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
+      - unit-test:
+          requires:
+            - code-formatter-check
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
+      - terraform-validate:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
+      - terraform-plan-and-apply:
+          requires:
+            - terraform-validate
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
+      - upload-project-to-s3:
+          requires:
+            - terraform-plan-and-apply
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
+      - push-to-aws-code-deploy:
+          requires:
+            - upload-project-to-s3
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
+      - notify-via-slack:
+          requires:
+            - push-to-aws-code-deploy
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
       - hold:
           type: approval
           requires:
-            - terraform-upload-to-s3
-      - terraform-upload-to-s3-destroy:
+            - notify-via-slack
+      - terraform-destroy:
           requires:
             - hold
           filters:
@@ -443,16 +392,3 @@ workflows:
                 - develop
                 - staging
                 - main
-      # - hold:
-      #     type: approval
-      #     requires:
-      #       - notify-via-slack
-      # - terraform-destroy:
-      #     requires:
-      #       - hold
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
