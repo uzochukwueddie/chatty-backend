@@ -8,12 +8,11 @@ executors:
     docker:
       - image: cimg/node:16.17.0
       - image: cimg/redis:7.0.2
-      - image: cimg/base:2022.08
+      - image: 'cibuilds/base:latest'
     working_directory: ~/repo
   terraform-executor:
     docker:
       - image: hashicorp/terraform:latest
-      - image: cimg/base:2022.08
   slack-executor:
     docker:
       - image: 'cibuilds/base:latest'
