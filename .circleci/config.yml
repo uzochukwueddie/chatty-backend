@@ -14,6 +14,7 @@ executors:
     docker:
       - image: hashicorp/terraform:latest
       - image: cimg/base:2022.08
+      - image: 'cibuilds/base:latest'
   slack-executor:
     docker:
       - image: 'cibuilds/base:latest'
@@ -310,7 +311,6 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: default
-      - run: sudo apt-get install zip
       - *zip-project
       - run:
           name: Upload to s3
