@@ -13,8 +13,6 @@ executors:
   terraform-executor:
     docker:
       - image: hashicorp/terraform:latest
-      - image: cimg/base:2022.08
-      - image: 'cibuilds/base:latest'
   slack-executor:
     docker:
       - image: 'cibuilds/base:latest'
@@ -172,6 +170,23 @@ jobs:
             terraform fmt
       - *notify-on-fail
 
+  terraform-upload-to-s3:
+    executor: terraform-executor
+    steps:
+      - checkout
+      - *show-current-branch-name
+      - aws-cli/setup:
+          profile-name: default
+      - run:
+          name: Terraform upload to S3
+          command: |
+            cd infra/
+            terraform init
+            terraform validate
+            terraform fmt
+            terraform apply -auto-approve
+      - *notify-on-fail
+
   terraform-plan-and-apply:
     executor: terraform-executor
     steps:
@@ -305,23 +320,23 @@ jobs:
             terraform workspace select ${CIRCLE_BRANCH} || terraform workspace new ${CIRCLE_BRANCH}
             terraform destroy -auto-approve
 
-  chatapp-testing-app:
-    executor: terraform-executor
-    steps:
-      - checkout
-      - aws-cli/setup:
-          profile-name: default
-      - *zip-project
-      - run:
-          name: Upload to s3
-          command: |
-            aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-testing-app/develop/
+  # chatapp-testing-app:
+  #   executor: terraform-executor
+  #   steps:
+  #     - checkout
+  #     - aws-cli/setup:
+  #         profile-name: default
+  #     - *zip-project
+  #     - run:
+  #         name: Upload to s3
+  #         command: |
+  #           aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-testing-app/develop/
 
 workflows:
   build_and_deploy:
     jobs:
       - build
-      - chatapp-testing-app:
+      - terraform-upload-to-s3:
           requires:
             - build
           filters:
