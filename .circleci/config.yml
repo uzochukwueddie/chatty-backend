@@ -325,15 +325,15 @@ workflows:
                 - develop
                 - staging
                 - main
-      # - unit-test:
-      #     requires:
-      #       - code-formatter-check
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
+      - unit-test:
+          requires:
+            - code-formatter-check
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
       # - terraform-validate:
       #     requires:
       #       - unit-test
