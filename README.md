@@ -118,6 +118,29 @@ Make sure mongodb and redis are both running on your local machine.
 - For example, on namecheap.com
 ![](https://res.cloudinary.com/dyamr9ym3/image/upload/v1662494440/github_readme_images/Screenshot_2022-09-06_at_10.00.21_PM_fd32tx.png)
 
+## AWS Resources Used
+- VPC
+- Subnets
+- Internet gateways
+- Route tables
+- Elastic ips
+- Nat gateways
+- Security groups
+- ALB target groups
+- Route53
+- AWS Certificate Manager
+- Application load balancers
+- IAM roles
+- Elasticache
+- EC2 launch config
+- EC2 instances
+- Autoscaling group
+- S3
+- Code deploy
+- Cloudwatch
+
+![alt](https://res.cloudinary.com/dyamr9ym3/image/upload/v1662499152/github_readme_images/Screenshot_2022-09-06_at_11.18.49_PM_iqxk9u.png)
+
 ## AWS Infrastructure Setup with Terraform
 - Install [terraform](https://www.terraform.io/downloads)
 - Terraform stores state about your managed infrastructure and configuration. This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
