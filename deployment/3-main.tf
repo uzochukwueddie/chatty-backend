@@ -1,8 +1,9 @@
 terraform {
   backend "s3" {
-    bucket  = "chatty-app-terraform-state"
+    bucket  = "" # Your unique AWS S3 bucket
+    # create a sub-folder called develop
     key     = "develop/chatapp.tfstate"
-    region  = "eu-central-1"
+    region  = "" # Your AWS region
     encrypt = true
   }
 }
@@ -14,6 +15,6 @@ locals {
     Environment = terraform.workspace
     Project     = var.project
     ManagedBy   = "Terraform"
-    Owner       = "Uzochukwu Eddie Odozi"
+    Owner       = "" # Your fullname
   }
 }

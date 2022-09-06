@@ -2,42 +2,48 @@
 @urlPath = api/v1
 
 ###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/<postId>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/single/reaction/username/<username-of-logged-in-user>/<postId>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/username/<username-of-logged-in-user>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
 POST {{baseUrl}}/{{urlPath}}/post/reaction
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
+# type - like | love | wow | happy | sad | angry
+# previousReaction (if it exist) - like | love | wow | happy | sad | angry
+# postReactions - increment new reaction by 1 and decrement previous reaction by 1
+
 {
-  "userTo": "62e539c0d8b514f6e42e3b5b",
-  "postId": "62ed227827461b3ece2d6f25",
-  "type": "love",
+  "userTo": "",
+  "postId": "",
+  "type": "",
   "previousReaction": "",
-  "postReactions": {"like": 0,"love": 0,"happy": 0,"sad": 1,"wow": 0,"angry": 0},
-  "profilePicture": "https://res.cloudinary.com/dyamr9ym3/image/upload/v1659189696/62e539c0d8b514f6e42e3b5b"
+  "postReactions": {"like": 0,"love": 0,"happy": 0,"sad": 0,"wow": 0,"angry": 0},
+  "profilePicture": "<cloudinary-user-profile-picture-url>"
 }
 
 ###
-DELETE {{baseUrl}}/{{urlPath}}/post/reaction/62ea82366d7191261d4ff0de/sad/{"like": 0,"love": 0,"happy": 0,"sad": 0,"wow": 0,"angry": 0}
+DELETE {{baseUrl}}/{{urlPath}}/post/reaction/<postId>/<previousReaction>/{"like": 0,"love": 0,"happy": 0,"sad": 0,"wow": 0,"angry": 0}
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
 {}
 
-###
-GET {{baseUrl}}/{{urlPath}}/post/reactions/62ea82366d7191261d4ff0de
-Content-Type: application/json
-Accept: application/json
-withCredentials: true
 
-###
-GET {{baseUrl}}/{{urlPath}}/post/single/reaction/username/Manny/62ea82366d7191261d4ff0de
-Content-Type: application/json
-Accept: application/json
-withCredentials: true
-
-###
-GET {{baseUrl}}/{{urlPath}}/post/reactions/username/Danny
-Content-Type: application/json
-Accept: application/json
-withCredentials: true

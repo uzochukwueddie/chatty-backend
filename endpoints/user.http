@@ -2,7 +2,8 @@
 @urlPath = api/v1
 
 ###
-GET {{baseUrl}}/{{urlPath}}/user/all/1
+GET {{baseUrl}}/{{urlPath}}/user/all/<page-number>
+# GET {{baseUrl}}/{{urlPath}}/user/all/1
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
@@ -14,13 +15,13 @@ Accept: application/json
 withCredentials: true
 
 ###
-GET {{baseUrl}}/{{urlPath}}/user/profile/62f29f71da585226216b2724
+GET {{baseUrl}}/{{urlPath}}/user/profile/<userId>
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
 ###
-GET {{baseUrl}}/{{urlPath}}/user/profile/posts/danny/62f2962c6b761b208a728e91/643053551256
+GET {{baseUrl}}/{{urlPath}}/user/profile/posts/<username>/<userId>/<uId>
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
@@ -32,7 +33,7 @@ Accept: application/json
 withCredentials: true
 
 ###
-GET {{baseUrl}}/{{urlPath}}/user/profile/search/danny
+GET {{baseUrl}}/{{urlPath}}/user/profile/search/<search-username-query>
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
@@ -44,9 +45,9 @@ Accept: application/json
 withCredentials: true
 
 {
-  "currentPassword": "qwerty",
-  "newPassword": "qwerty1",
-  "confirmPassword": "qwerty1"
+  "currentPassword": "",
+  "newPassword": "",
+  "confirmPassword": ""
 }
 
 ###
@@ -56,10 +57,10 @@ Accept: 'application/json'
 withCredentials: true
 
 {
-  "quote": "Tomorrow is a mystery. Today is a gift. That's why we call it The Present",
+  "quote": "",
   "work": "",
-  "school": "Taltech",
-  "location": "Dusseldorf, Germany"
+  "school": "",
+  "location": ""
 }
 
 ###
@@ -71,8 +72,8 @@ withCredentials: true
 {
   "instagram": "",
   "twitter": "",
-  "facebook": "https://www.facebook.com/gitlab",
-  "youtube": "https://www.youtube.com/watch?v=i1o9HMGaWxM"
+  "facebook": "",
+  "youtube": ""
 }
 
 ###

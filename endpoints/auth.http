@@ -2,31 +2,6 @@
 @urlPath = api/v1
 
 ###
-POST {{baseUrl}}/{{urlPath}}/signup
-Content-Type: application/json
-Accept: application/json
-withCredentials: true
-
-{
-  "username": "steve",
-  "password": "qwerty",
-  "email": "steve@test.com",
-  "avatarColor": "blue",
-  "avatarImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAAMyAQMAAABtkHM/AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAAFiS0dEAf8CLd4AAABrSURBVBgZ7cGBAAAAAMOg+1NP4AjVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjgBSwwABwrL8wAAAAABJRU5ErkJggg=="
-}
-
-###
-POST {{baseUrl}}/{{urlPath}}/signin
-Content-Type: application/json
-Accept: application/json
-withCredentials: true
-
-{
-  "username": "danny",
-  "password": "qwerty1"
-}
-
-###
 GET {{baseUrl}}/{{urlPath}}/signout
 Content-Type: application/json
 Accept: application/json
@@ -39,22 +14,47 @@ Accept: application/json
 withCredentials: true
 
 ###
+POST {{baseUrl}}/{{urlPath}}/signup
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "username": "",
+  "password": "",
+  "email": "",
+  "avatarColor": "",
+  "avatarImage": "<add-a-base64-encoded-string>"
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/signin
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "username": "",
+  "password": ""
+}
+
+###
 POST {{baseUrl}}/{{urlPath}}/forgot-password
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
 {
-  "email": "manny@test.com"
+  "email": ""
 }
 
 ###
-POST {{baseUrl}}/{{urlPath}}/reset-password/d6b4bdcaca3f93fb5a322ccba5cd3768f76ca5ea
+POST {{baseUrl}}/{{urlPath}}/reset-password/<token>
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
 {
-  "password": "qwerty1",
-  "confirmPassword": "qwerty1"
+  "password": "",
+  "confirmPassword": ""
 }

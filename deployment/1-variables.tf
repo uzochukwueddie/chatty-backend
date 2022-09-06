@@ -1,7 +1,7 @@
 variable "aws_region" {
   description = "Region in which AWS resources are created"
   type        = string
-  default     = "eu-central-1"
+  default     = "" # Your AWS region
 }
 
 variable "vpc_cidr_block" {
@@ -13,7 +13,7 @@ variable "vpc_cidr_block" {
 variable "vpc_availability_zones" {
   description = "VPC Availability Zones"
   type        = list(string)
-  default     = ["eu-central-1a", "eu-central-1b"]
+  default     = ["", ""] # Two availability zones for your specific region
 }
 
 variable "vpc_public_subnets" {
@@ -37,7 +37,7 @@ variable "global_destination_cidr_block" {
 variable "bastion_host_cidr" {
   description = "CIDR Block for Bastion Host Ingress"
   type        = string
-  default     = "37.201.224.186/32"
+  default     = "" # Your <IP address>/32
 }
 
 variable "https_ssl_policy" {
@@ -49,31 +49,31 @@ variable "https_ssl_policy" {
 variable "main_api_server_domain" {
   description = "Main API Server Domain"
   type        = string
-  default     = "chatappserver.xyz"
+  default     = "" # Your backend domain you created a route53 zone for
 }
 
 variable "dev_api_server_domain" {
   description = "Dev API Server Domain"
   type        = string
-  default     = "api.dev.chatappserver.xyz"
+  default     = "api.dev.<your-backend-domain>"
 }
 
 variable "ec2_iam_role_name" {
   description = "EC2 IAM Role Name"
   type        = string
-  default     = "chatapp-server-ec2-role"
+  default     = "" # Add a unique name
 }
 
 variable "ec2_iam_role_policy_name" {
   description = "EC2 IAM Role Policy Name"
   type        = string
-  default     = "chatapp-server-ec2-role-policy"
+  default     = "" # Add a unique name
 }
 
 variable "ec2_instance_profile_name" {
   description = "EC2 Instance Profile Name"
   type        = string
-  default     = "chatapp-server-ec2-instance-profile"
+  default     = "" # Add a unique name
 }
 
 variable "elasticache_node_type" {
@@ -103,17 +103,17 @@ variable "bastion_host_type" {
 variable "code_deploy_role_name" {
   description = "CodeDeploy IAM Role"
   type        = string
-  default     = "chatapp-server-codedeploy-role"
+  default     = "" # Add a unique name
 }
 
 variable "prefix" {
   description = "Prefix to be added to AWS resources tags"
   type        = string
-  default     = "chatapp-server"
+  default     = "" # Add a unique identifier name
 }
 
 variable "project" {
   description = "Prefix to be added to AWS resources local tags"
   type        = string
-  default     = "chatapp-server"
+  default     = "chatapp-server" # You can use the name unique identifier created above
 }

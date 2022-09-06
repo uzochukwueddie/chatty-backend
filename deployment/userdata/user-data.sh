@@ -37,10 +37,10 @@ fi
 
 cd /home/ec2-user
 
-git clone -b develop https://github.com/uzochukwueddie/chatty-backend.git
-cd chatty-backend
+git clone -b develop https://github.com/uzochukwueddie/chatty-backend.git # replace this github url with your url of your own project
+cd chatty-backend # set your project name
 npm install
-aws s3 sync s3://chattyapp-env-files/backend/develop .
+aws s3 sync s3://<your-s3-bucket>/backend/develop . # update with your s3 bucket
 unzip env-file.zip
 cp .env.develop .env
 npm run build
