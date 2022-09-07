@@ -115,5 +115,5 @@ variable "prefix" {
 variable "project" {
   description = "Prefix to be added to AWS resources local tags"
   type        = string
-  default     = "chatapp-server" # You can use the name unique identifier created above
+  default     = "" # You can use the name unique identifier created above
 }

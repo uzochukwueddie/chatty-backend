@@ -202,7 +202,7 @@ jobs:
       - run:
           name: Upload project to S3
           command: |
-            aws --region eu-central-1 s3 cp chatapp.zip s3://chatapp-server-${CIRCLE_BRANCH}-app
+            aws --region eu-central-1 s3 cp chatapp.zip s3://<variable-prefix>-${CIRCLE_BRANCH}-app
       - *notify-on-fail
 
   push-to-aws-code-deploy:
@@ -218,11 +218,11 @@ jobs:
             then
                 aws deploy create-deployment \
                     --region eu-central-1 \
-                    --application-name chatapp-server-${CIRCLE_BRANCH}-app \
+                    --application-name <variable-prefix>-${CIRCLE_BRANCH}-app \
                     --deployment-config-name CodeDeployDefault.AllAtOnce \
-                    --deployment-group-name chatapp-server-${CIRCLE_BRANCH}-group \
+                    --deployment-group-name <variable-prefix>-${CIRCLE_BRANCH}-group \
                     --file-exists-behavior "OVERWRITE" \
-                    --s3-location bucket=chatapp-server-${CIRCLE_BRANCH}-app,bundleType=zip,key=chatapp.zip
+                    --s3-location bucket=<variable-prefix>-${CIRCLE_BRANCH}-app,bundleType=zip,key=chatapp.zip
             fi
       - *notify-on-fail
 

@@ -77,6 +77,8 @@ npm install
 ```bash
 npm run dev
 ```
+- Inside the `setupServer.ts` file, comment the line `sameSite: 'none'`.
+- You'll need to uncomment that line again before you deploy to AWS.
 
 Make sure mongodb and redis are both running on your local machine.
 
@@ -142,6 +144,7 @@ Make sure mongodb and redis are both running on your local machine.
 ![alt](https://res.cloudinary.com/dyamr9ym3/image/upload/v1662499152/github_readme_images/Screenshot_2022-09-06_at_11.18.49_PM_iqxk9u.png)
 
 ## AWS Infrastructure Setup with Terraform
+- Make sure to uncomment this line `sameSite: 'none'` inside `setupServer.ts` file.
 - Install [terraform](https://www.terraform.io/downloads)
 - Terraform stores state about your managed infrastructure and configuration. This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
 - This state is stored by default in a local file named "terraform.tfstate", but it can also be stored remotely, which works better in a team environment.
@@ -184,5 +187,9 @@ Make sure mongodb and redis are both running on your local machine.
   - Once you login and setup your project, you will receive a token. Add that token to circleci.
 - For `CODE_DEPLOY_UPDATE`, the default value is false. That is the first time you are setting up your pipeline and infrastructure. Once everything is setup and running, if you need to update your backend code, then you can change the property to true.
 - `SLACK_ACCESS_TOKEN` and `SLACK_DEFAULT_CHANNEL` can be obtained by following this [documentation](https://github.com/CircleCI-Public/slack-orb/wiki/Setup).
+
+### Before Starting a Build
+- Inside the `circleci.yml` file, you need to make some updates.
+- There are some properties named `<variable-prefix>` that you need to replace with the `prefix` value from your terraform `variables.tf`. Search the config.yml file and replace `<variable-prefix>`.
 
 ## You can find the frontend code [here](https://github.com/uzochukwueddie/chatty)
