@@ -1,4 +1,3 @@
-import 'newrelic';
 import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
 import http from 'http';
 import cors from 'cors';
