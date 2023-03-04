@@ -35,7 +35,7 @@ class ReactionService {
         },
         { new: true }
       )
-    ])) as [IUserDocument, IReactionDocument, IPostDocument];
+    ])) as unknown as [IUserDocument, IReactionDocument, IPostDocument];
 
     if (updatedReaction[0].notifications.reactions && userTo !== userFrom) {
       const notificationModel: INotificationDocument = new NotificationModel();

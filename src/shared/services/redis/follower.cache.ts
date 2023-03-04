@@ -97,8 +97,7 @@ export class FollowerCache extends BaseCache {
         remove(blocked, (id: string) => id === value);
         blocked = [...blocked];
       }
-      const dataToSave: string[] = [`${prop}`, JSON.stringify(blocked)];
-      multi.HSET(`users:${key}`, dataToSave);
+      multi.HSET(`users:${key}`, `${prop}`, JSON.stringify(blocked));
       await multi.exec();
     } catch (error) {
       log.error(error);

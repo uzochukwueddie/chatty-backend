@@ -39,60 +39,37 @@ export class UserCache extends BaseCache {
       bgImageVersion,
       social
     } = createdUser;
-    const firstList: string[] = [
-      '_id',
-      `${_id}`,
-      'uId',
-      `${uId}`,
-      'username',
-      `${username}`,
-      'email',
-      `${email}`,
-      'avatarColor',
-      `${avatarColor}`,
-      'createdAt',
-      `${createdAt}`,
-      'postsCount',
-      `${postsCount}`
-    ];
-    const secondList: string[] = [
-      'blocked',
-      JSON.stringify(blocked),
-      'blockedBy',
-      JSON.stringify(blockedBy),
-      'profilePicture',
-      `${profilePicture}`,
-      'followersCount',
-      `${followersCount}`,
-      'followingCount',
-      `${followingCount}`,
-      'notifications',
-      JSON.stringify(notifications),
-      'social',
-      JSON.stringify(social)
-    ];
-    const thirdList: string[] = [
-      'work',
-      `${work}`,
-      'location',
-      `${location}`,
-      'school',
-      `${school}`,
-      'quote',
-      `${quote}`,
-      'bgImageVersion',
-      `${bgImageVersion}`,
-      'bgImageId',
-      `${bgImageId}`
-    ];
-    const dataToSave: string[] = [...firstList, ...secondList, ...thirdList];
+    const dataToSave = {
+      '_id': `${_id}`,
+      'uId': `${uId}`,
+      'username': `${username}`,
+      'email': `${email}`,
+      'avatarColor': `${avatarColor}`,
+      'createdAt': `${createdAt}`,
+      'postsCount': `${postsCount}`,
+      'blocked': JSON.stringify(blocked),
+      'blockedBy': JSON.stringify(blockedBy),
+      'profilePicture': `${profilePicture}`,
+      'followersCount': `${followersCount}`,
+      'followingCount': `${followingCount}`,
+      'notifications': JSON.stringify(notifications),
+      'social': JSON.stringify(social),
+      'work': `${work}`,
+      'location': `${location}`,
+      'school': `${school}`,
+      'quote': `${quote}`,
+      'bgImageVersion': `${bgImageVersion}`,
+      'bgImageId': `${bgImageId}`
+    };
 
     try {
       if (!this.client.isOpen) {
         await this.client.connect();
       }
       await this.client.ZADD('user', { score: parseInt(userUId, 10), value: `${key}` });
-      await this.client.HSET(`users:${key}`, dataToSave);
+      for (const [itemKey, itemValue] of Object.entries(dataToSave)) {
+        await this.client.HSET(`users:${key}`, `${itemKey}`, `${itemValue}`);
+      }
     } catch (error) {
       log.error(error);
       throw new ServerError('Server error. Try again.');
@@ -216,8 +193,7 @@ export class UserCache extends BaseCache {
       if (!this.client.isOpen) {
         await this.client.connect();
       }
-      const dataToSave: string[] = [`${prop}`, JSON.stringify(value)];
-      await this.client.HSET(`users:${userId}`, dataToSave);
+      await this.client.HSET(`users:${userId}`, `${prop}`, JSON.stringify(value));
       const response: IUserDocument = (await this.getUserFromCache(userId)) as IUserDocument;
       return response;
     } catch (error) {
