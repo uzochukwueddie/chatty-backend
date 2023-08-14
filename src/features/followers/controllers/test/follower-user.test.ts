@@ -73,6 +73,7 @@ describe('Add', () => {
       const req: Request = followersMockRequest({}, authUserPayload, { followerId: '6064861bc25eaa5a5d2f9bf4' }) as Request;
       const res: Response = followersMockResponse();
       const spy = jest.spyOn(followerQueue, 'addFollowerJob');
+      jest.spyOn(UserCache.prototype, 'getUserFromCache').mockResolvedValue(existingUser);
 
       await Add.prototype.follower(req, res);
       expect(followerQueue.addFollowerJob).toHaveBeenCalledWith('addFollowerToDB', {

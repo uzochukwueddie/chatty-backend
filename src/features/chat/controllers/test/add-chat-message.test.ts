@@ -28,7 +28,6 @@ Object.defineProperties(chatServer, {
 
 describe('Add', () => {
   beforeEach(() => {
-    jest.spyOn(UserCache.prototype, 'getUserFromCache').mockResolvedValue(existingUser);
     jest.restoreAllMocks();
   });
 
@@ -41,6 +40,7 @@ describe('Add', () => {
     jest.spyOn(chatServer.socketIOChatObject, 'emit');
     const req: Request = chatMockRequest({}, chatMessage, authUserPayload) as Request;
     const res: Response = chatMockResponse();
+    jest.spyOn(UserCache.prototype, 'getUserFromCache').mockResolvedValue(existingUser);
 
     await Add.prototype.message(req, res);
     expect(chatServer.socketIOChatObject.emit).toHaveBeenCalledTimes(2);
@@ -73,6 +73,7 @@ describe('Add', () => {
     const req: Request = chatMockRequest({}, chatMessage, authUserPayload) as Request;
     const res: Response = chatMockResponse();
     jest.spyOn(emailQueue, 'addEmailJob');
+    jest.spyOn(UserCache.prototype, 'getUserFromCache').mockResolvedValue(existingUser);
 
     const templateParams = {
       username: existingUserTwo.username!,
@@ -93,6 +94,7 @@ describe('Add', () => {
     jest.spyOn(MessageCache.prototype, 'addChatListToCache');
     const req: Request = chatMockRequest({}, chatMessage, authUserPayload) as Request;
     const res: Response = chatMockResponse();
+    jest.spyOn(UserCache.prototype, 'getUserFromCache').mockResolvedValue(existingUser);
 
     await Add.prototype.message(req, res);
     expect(MessageCache.prototype.addChatListToCache).toHaveBeenCalledTimes(2);
@@ -102,6 +104,7 @@ describe('Add', () => {
     jest.spyOn(MessageCache.prototype, 'addChatMessageToCache');
     const req: Request = chatMockRequest({}, chatMessage, authUserPayload) as Request;
     const res: Response = chatMockResponse();
+    jest.spyOn(UserCache.prototype, 'getUserFromCache').mockResolvedValue(existingUser);
 
     await Add.prototype.message(req, res);
     expect(MessageCache.prototype.addChatMessageToCache).toHaveBeenCalledTimes(1);
@@ -111,6 +114,7 @@ describe('Add', () => {
     jest.spyOn(chatQueue, 'addChatJob');
     const req: Request = chatMockRequest({}, chatMessage, authUserPayload) as Request;
     const res: Response = chatMockResponse();
+    jest.spyOn(UserCache.prototype, 'getUserFromCache').mockResolvedValue(existingUser);
 
     await Add.prototype.message(req, res);
     expect(chatQueue.addChatJob).toHaveBeenCalledTimes(1);
@@ -119,6 +123,7 @@ describe('Add', () => {
   it('should send correct json response', async () => {
     const req: Request = chatMockRequest({}, chatMessage, authUserPayload) as Request;
     const res: Response = chatMockResponse();
+    jest.spyOn(UserCache.prototype, 'getUserFromCache').mockResolvedValue(existingUser);
 
     await Add.prototype.message(req, res);
     expect(res.status).toHaveBeenCalledWith(200);
