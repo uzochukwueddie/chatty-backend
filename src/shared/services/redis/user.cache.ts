@@ -40,26 +40,26 @@ export class UserCache extends BaseCache {
       social
     } = createdUser;
     const dataToSave = {
-      '_id': `${_id}`,
-      'uId': `${uId}`,
-      'username': `${username}`,
-      'email': `${email}`,
-      'avatarColor': `${avatarColor}`,
-      'createdAt': `${createdAt}`,
-      'postsCount': `${postsCount}`,
-      'blocked': JSON.stringify(blocked),
-      'blockedBy': JSON.stringify(blockedBy),
-      'profilePicture': `${profilePicture}`,
-      'followersCount': `${followersCount}`,
-      'followingCount': `${followingCount}`,
-      'notifications': JSON.stringify(notifications),
-      'social': JSON.stringify(social),
-      'work': `${work}`,
-      'location': `${location}`,
-      'school': `${school}`,
-      'quote': `${quote}`,
-      'bgImageVersion': `${bgImageVersion}`,
-      'bgImageId': `${bgImageId}`
+      _id: `${_id}`,
+      uId: `${uId}`,
+      username: `${username}`,
+      email: `${email}`,
+      avatarColor: `${avatarColor}`,
+      createdAt: `${createdAt}`,
+      postsCount: `${postsCount}`,
+      blocked: JSON.stringify(blocked),
+      blockedBy: JSON.stringify(blockedBy),
+      profilePicture: `${profilePicture}`,
+      followersCount: `${followersCount}`,
+      followingCount: `${followingCount}`,
+      notifications: JSON.stringify(notifications),
+      social: JSON.stringify(social),
+      work: `${work}`,
+      location: `${location}`,
+      school: `${school}`,
+      quote: `${quote}`,
+      bgImageVersion: `${bgImageVersion}`,
+      bgImageId: `${bgImageId}`
     };
 
     try {
@@ -72,7 +72,7 @@ export class UserCache extends BaseCache {
       }
     } catch (error) {
       log.error(error);
-      throw new ServerError('Server error. Try again.');
+      throw new ServerError('Error saving REDIS user cache');
     }
   }
 
@@ -102,7 +102,7 @@ export class UserCache extends BaseCache {
       return response;
     } catch (error) {
       log.error(error);
-      throw new ServerError('Server error. Try again.');
+      throw new ServerError('Error retreiving REDIS user cache');
     }
   }
 
